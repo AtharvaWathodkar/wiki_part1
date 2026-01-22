@@ -1,0 +1,63 @@
+fastapi:
+  image_name: wiki-service:latest
+  replicas: 1
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "100m"
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
+
+postgresql:
+  enabled: true
+  auth:
+    username: wikiadmin
+    password: wikipass
+    database: wikidb
+  primary:
+    resources:
+      requests:
+        memory: "256Mi"
+        cpu: "100m"
+      limits:
+        memory: "512Mi"
+        cpu: "500m"
+    persistence:
+      enabled: true
+      size: 2Gi
+
+prometheus:
+  enabled: true
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "100m"
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
+  persistence:
+    enabled: true
+    size: 2Gi
+
+grafana:
+  enabled: true
+  adminUser: admin
+  adminPassword: admin
+  resources:
+    requests:
+      memory: "128Mi"
+      cpu: "100m"
+    limits:
+      memory: "256Mi"
+      cpu: "300m"
+  persistence:
+    enabled: true
+    size: 1Gi
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  host: localhost
