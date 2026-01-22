@@ -95,8 +95,3 @@ curl -X POST http://localhost:8000/posts/ \
 curl http://localhost:8000/metrics
 ```
 
-![alt text](image-1.png)
-![alt text](image.png)
-![alt text](image-2.png)
-![alt text](<Screenshot 2026-01-22 at 3.54.22 PM.png>)
-
