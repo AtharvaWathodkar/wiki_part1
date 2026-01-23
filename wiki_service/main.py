@@ -8,7 +8,7 @@ from prometheus_client import Counter, generate_latest, CONTENT_TYPE_LATEST
 from fastapi.responses import Response
 import os
 
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://wikiadmin:wikipass@postgres:5432/wikidb")
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://wikiadmin:wikipass@wiki-postgres:5432/wikidb")
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -54,7 +54,11 @@ def get_db():
 
 @app.get("/")
 def root():
-    return {"message": "Wiki Service API"}
+    return {"message": "Wiki Service API", "status": "running"}
+
+@app.get("/health")
+def health():
+    return {"status": "healthy"}
 
 @app.post("/users/")
 def create_user(user: UserCreate, db: Session = Depends(get_db)):
@@ -101,7 +105,3 @@ def get_post(post_id: int, db: Session = Depends(get_db)):
 @app.get("/metrics")
 def metrics():
     return Response(generate_latest(), media_type=CONTENT_TYPE_LATEST)
-
-@app.get("/health")
-def health():
-    return {"status": "healthy"}
