@@ -143,3 +143,6 @@ If you get 404 errors:
 1. Wait longer (3-5 minutes for full startup)
 2. Check logs: `docker logs wiki-dind`
 3. Verify services are running: `docker exec wiki-dind kubectl get pods`
+
+
+
